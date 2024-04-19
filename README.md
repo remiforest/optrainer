@@ -19,3 +19,5 @@ Correct lettters will appear in green, and wrong letters in red.
 <img width="604" alt="image" src="https://github.com/remiforest/optrainer/assets/17250931/e5a528df-3430-47fd-8272-c0b1e47f260f">
 
 Enjoy !
+
+OpTrainer uses https://github.com/adrianliaw/PyCuber
