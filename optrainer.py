@@ -89,9 +89,9 @@ def format_sequence(sequence):
 
 def display_memory_training(sequence):
     colorama.init(autoreset=True)
-    print("Mémorisez la séquence suivante (corners;edges):")
+    print("Sequence to memorize (corners;edges):")
     print(format_sequence(sequence))  # Affiche la séquence à mémoriser en majuscules
-    print("Appuyez sur la barre d'espace pour commencer à vous tester...")
+    print("Press spacebar to start ...")
 
     # Attendre que l'utilisateur appuie sur la barre d'espace
     while readchar.readkey() != readchar.key.SPACE:
@@ -100,20 +100,23 @@ def display_memory_training(sequence):
     # Effacer les deux dernières lignes
     print("\033[A                                                          \033[A")  # Efface la dernière ligne
     print("\033[A                                                          \033[A")  # Efface la ligne avant la dernière
+    print("\033[A                                                          \033[A")  # Efface la ligne avant la dernière
 
-    print("Tapez la séquence mémorisée (edges;corners): ", end="", flush=True)
+    print("Type memorized sequence (edges;corners), escape with 'Z' : ", end="", flush=True)
     user_input = ""
 
     # on inverse les séquences
     parts = sequence.upper().split(';')
     sequence = parts[1] + ";" + parts[0]
 
+    errors = 0
+
     for expected_char in sequence.upper():
         while True:
             char = readchar.readkey().upper()  # Convertit la saisie en majuscule pour uniformité
             
             if char == 'Z':  # Interruption si 'Z' est tapée
-                print(Fore.RED + "\nInterruption par l'utilisateur.")
+                print(Fore.RED + "\nAbandon.")
                 print(format_sequence(sequence))
                 return
 
@@ -122,18 +125,16 @@ def display_memory_training(sequence):
                 user_input += char
                 break  # Sortie de la boucle interne si la lettre est correcte
             else:
-                print(Fore.RED + char, end="\b \b")  # Affiche la lettre en rouge puis efface
+                print(Fore.RED + char, end="", flush=True)  # Affiche la lettre en rouge
+                errors += 1
 
 
     print()  # Pour le retour à la ligne après la saisie
     if user_input == sequence.upper():
-        print(Fore.GREEN + "Bien joué ! Vous avez correctement mémorisé la séquence.")
-    else:
-        print(Fore.RED + "Erreur dans la séquence saisie.")
-        print(Fore.YELLOW + f"Séquence attendue : {sequence.upper()}")
-        print(Fore.YELLOW + f"Votre saisie       : {user_input}")
-
-
+        if errors == 0:
+            print(Fore.GREEN + "Bravo !")
+        else:
+            print(Fore.MAGENTA + "Well done ! Only " + str(errors) + " errors.")
 
 
 
@@ -196,7 +197,7 @@ scramble = pc.Formula().random() # "R U R' U' L D2 R U2 B L' D2 F'" #
 
 cube(scramble)
 
-print("Mélange:", scramble)
+print("Scramble:", scramble)
 print(cube)
 
 
