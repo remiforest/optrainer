@@ -1,5 +1,7 @@
 OpTrainer helps cubers to practice Old Pochmann memorization.
 
+install the modified version of PyCuber using: pip3 install ./lib/pycuber
+
 just run the script with python3 optrainer.py
 
 It will give you a scramble and the representation of the scrambled cube, and a solving sequence.
